@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Slider with Tailwind CSS</title>
+  <link
+    href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+    rel="stylesheet"
+  />
+</head>
+<body class="bg-gray-200 flex items-center justify-center h-screen">
+  <div id="slider-wrapper" class="w-[640px] h-[640px] p-3 relative">
+    <div class="slider relative">
+      <div class="w-[257px] h-[387px] relative">
+        <img
+          src="./assets/images/car1.png"
+          alt="Car"
+          class="w-full h-full object-cover rounded-t-lg"
+          id="image"
+        />
+        <div id="buttons" class="absolute inset-0 flex items-center justify-between pointer-events-none">
+          <button id="prev" class="bg-blue-500 text-white px-4 py-2 mr-2 rounded pointer-events-auto">
+            Prev
+          </button>
+          <button id="next" class="bg-blue-500 text-white px-4 py-2 rounded pointer-events-auto">
+            Next
+          </button>
+        </div>
+      </div>
+      <div class="p-4">
+        <p id="info" class="text-lg font-bold mb-2">2016 Mustang GT</p>
+        <p class="text-sm text-gray-600">San Francisco, United States</p>
+        <p class="text-sm text-gray-600">Published on May 17, 2017</p>
+      </div>
+    </div>
+  </div>
+  <script src="./assets/js/script.js"></script>
+</body>
+</html>
