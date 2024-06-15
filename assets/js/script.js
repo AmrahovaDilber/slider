@@ -15,7 +15,7 @@ const items = [
     id: 3,
     image: "/assets/images/gt3.webp",
     name: "2019 Porsche 911 GT3 RS",
-    info: "The Porsche 911 GT3 RS is a car that needs no introduction. Ever since the release of the 996.2, the GT3 RS has been known as the benchmark for a road-going, track-focused sports car.The 991 generation features a magnificent 4.0-litre flat-six with 490bhp and 469nm of torque, coupled with Porsche's ever-popular PDK transmission. This adds up to a 0-62mph time of 3.4 seconds and a top speed of 193mph.",
+    info: "The Porsche 911 GT3 RS is a car that needs no introduction. Ever since the release of the 996.2, the GT3 RS has been known as the benchmark for a road-going, track-focused sports car.",
   },
   {
     id: 4,
@@ -33,52 +33,26 @@ const items = [
     id: 6,
     image: "/assets/images/taycan4s.jpeg",
     name: "Taycan 4S",
-    info: "Breathtaking acceleration, tractive power typical of sports cars and outstanding continuously available power – the new model 4S also features these strengths of the Taycan. The permanently excited synchronous machine on the rear axle has an active length of 130 millimetres and is therefore exactly 80 millimetres shorter than the corresponding drive component on the Taycan Turbo S and Taycan Turbo. The pulse-controlled inverter used on the front axle in the Taycan 4S operates with up to 300 amps, and the inverter on the rear axle with up to 600 amps.",
+    info: "Breathtaking acceleration, tractive power typical of sports cars and outstanding continuously available power – the new model 4S also features these strengths of the Taycan. ",
   },
 ];
 
 let currentIndex = 0;
+const photoContent = document.querySelector("#photoContent");
+const name = document.querySelector("#name");
+const info = document.querySelector("#info");
+const image = document.querySelector("#image");
+const prevBtn = document.querySelector("#prev");
+const nextBtn = document.querySelector("#next");
 
-function generateSliderHTML() {
-  return `
-    <div class="border p-6 border-gray-200 rounded-md relative bg-white shadow-lg w-[457px] h-[387px]">
-      <div class="w-[457px] h-[387px] relative">
-        <img
-          src="${items[currentIndex].image}"
-          alt="img"
-          class="rounded-md object-cover w-full h-full"
-          id="image"
-        />
-      </div>
-      <div>
-        <p class="font-bold text-[18px] text-[#141414] mt-5" id="name">
-          ${items[currentIndex].name}
-        </p>
-        <p class="text-[#666666] text-[14px] font-bold opacity-60 mt-3" id="info">
-          ${items[currentIndex].info}
-        </p>
-      </div>
-      <div class="absolute inset-0 flex items-center justify-between px-4">
-        <button id="prev"
-          class="w-12 h-12 text-white text-xl rounded-full flex items-center justify-center bg-gradient-to-r from-gray-700 to-gray-900 shadow-md hover:from-gray-600 hover:to-gray-800"
-        >
-          <i class="fa-solid fa-chevron-left"></i>
-        </button>
-        <button id="next"
-          class="w-12 h-12 text-white text-xl rounded-full flex items-center justify-center bg-gradient-to-r from-gray-700 to-gray-900 shadow-md hover:from-gray-600 hover:to-gray-800"
-        >
-          <i class="fa-solid fa-chevron-right"></i>
-        </button>
-      </div>
-    </div>
-  `;
-}
-const container = document.getElementById("slider-container");
 function showSlide(index) {
-  document.querySelector("#image").src = items[index].image;
-  document.querySelector("#name").textContent = items[index].name;
-  document.querySelector("#info").textContent = items[index].info;
+  image.src = items[index].image;
+  name.textContent = items[index].name;
+  info.textContent = items[index].info;
 }
+
+prevBtn.addEventListener("click", handlePrev);
+nextBtn.addEventListener("click", handleNext);
 
 function handlePrev() {
   if (currentIndex === 0) {
@@ -98,7 +72,23 @@ function handleNext() {
   showSlide(currentIndex);
 }
 
-document.getElementById("slider-container").innerHTML = generateSliderHTML();
+let interval;
 
-document.getElementById("prev").addEventListener("click", handlePrev);
-document.getElementById("next").addEventListener("click", handleNext);
+function startInterval() {
+  interval = setInterval(handleNext, 3000);
+}
+
+function stopInterval() {
+  clearInterval(interval);
+}
+
+showSlide(currentIndex); 
+startInterval(); 
+
+photoContent.addEventListener("mouseenter", () => {
+  stopInterval();
+});
+
+photoContent.addEventListener("mouseleave", () => {
+  startInterval();
+});
